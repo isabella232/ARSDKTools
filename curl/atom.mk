@@ -51,9 +51,13 @@ LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
 	--without-libssh2 \
 	--without-librtmp \
 	--without-winidn \
-	LIBS=" -llog -lz" INSTALL="/usr/bin/install -C"
+	INSTALL="/usr/bin/install -C"
 
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
+
+LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
+	LIBS=" -llog -lz"
+
 ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--host=arm-linux-androideabi \
@@ -75,6 +79,7 @@ LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 else
 $(error unknown ARSDK_BUILD_ANDROID_ARCH $(ARSDK_BUILD_ANDROID_ARCH))
 endif
+
 endif
 
 # User define command to be launch before configure step.
