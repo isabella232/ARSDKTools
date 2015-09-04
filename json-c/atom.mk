@@ -23,26 +23,28 @@ LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
 	LIBS=" -llog -lz" \
 	INSTALL="/usr/bin/install -C"
 
-ifeq ($(ARSDK_BUILD_ARCH), armeabi)
+ifeq ("$(TARGET_OS_FLAVOUR)","android")
+ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--host=arm-linux-androideabi \
 	CFLAGS=" -march=armv5te"
 
-else ifeq ($(ARSDK_BUILD_ARCH), armeabi-v7a)
+else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi-v7a)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--host=arm-linux-androideabi \
 	CFLAGS=" -march=armv7-a"
 
-else ifeq ($(ARSDK_BUILD_ARCH), mips)
+else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), mips)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--host=mipsel-linux-androideabi
 
-else ifeq ($(ARSDK_BUILD_ARCH), x86)
+else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), x86)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--host=i686-linux-android
 
 else
-$(error unknown ARSDK_BUILD_ARCH $(ARSDK_BUILD_ARCH))
+$(error unknown ARSDK_BUILD_ANDROID_ARCH $(ARSDK_BUILD_ANDROID_ARCH))
+endif
 endif
 
 # User define command to be launch before configure step.
