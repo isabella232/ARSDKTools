@@ -20,8 +20,6 @@ LOCAL_EXPORT_LDLIBS := -lcurl
 LOCAL_LIBRARIES := libressl
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
-	--disable-static \
-	--enable-shared \
 	--disable-ares \
 	--disable-file \
 	--disable-ldap \
@@ -50,48 +48,42 @@ LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
 	--without-libmetalink \
 	--without-libssh2 \
 	--without-librtmp \
-	--without-winidn \
-	INSTALL="/usr/bin/install -C"
+	--without-winidn
 
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
+	--disable-static \
+	--enable-shared \
+	--disable-so-version \
 	LIBS=" -llog -lz"
 
 ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=arm-linux-androideabi \
 	CFLAGS=" -march=armv5te"
 
 else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi-v7a)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=arm-linux-androideabi \
 	CFLAGS=" -march=armv7-a"
 
-else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), mips)
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=mipsel-linux-androideabi
-
-else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), x86)
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=i686-linux-android
-
-else
-$(error unknown ARSDK_BUILD_ANDROID_ARCH $(ARSDK_BUILD_ANDROID_ARCH))
 endif
 
+else ifeq ("$(TARGET_OS_FLAVOUR)","iphoneos")
+
+LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
+	--disable-shared \
+	--enable-static
+
 endif
+
+LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
+	INSTALL="/usr/bin/install -C"
 
 # User define command to be launch before configure step.
 # Generates files used by configure
 define LOCAL_AUTOTOOLS_CMD_POST_UNPACK
 	$(Q) cd $(PRIVATE_SRC_DIR) && rm src/tool_hugehelp.c && autoreconf -fiv
 endef
-
-# Don't redefine alloc functions
-LOCAL_AUTOTOOLS_CONFIGURE_ENV := \
-	ac_cv_func_malloc_0_nonnull=yes \
-	ac_cv_func_realloc_0_nonnull=yes \
 
 include $(BUILD_AUTOTOOLS)
 

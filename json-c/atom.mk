@@ -18,36 +18,35 @@ LOCAL_AUTOTOOLS_PATCHES := \
 	avoid-version.patch
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
-	--disable-static \
-	--enable-shared \
 	INSTALL="/usr/bin/install -C"
 
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
+	--disable-static \
+	--enable-shared \
+	--disable-so-version \
 	LIBS=" -llog -lz"
 
 ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=arm-linux-androideabi \
 	CFLAGS=" -march=armv5te"
 
 else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi-v7a)
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=arm-linux-androideabi \
 	CFLAGS=" -march=armv7-a"
 
-else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), mips)
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=mipsel-linux-androideabi
-
-else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), x86)
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--host=i686-linux-android
-
-else
-$(error unknown ARSDK_BUILD_ANDROID_ARCH $(ARSDK_BUILD_ANDROID_ARCH))
 endif
+
+else ifeq ("$(TARGET_OS_FLAVOUR)","iphoneos")
+
+LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
+	--disable-shared \
+	--enable-static \
+	LIBS=" -lm -lz" \
+	OBJCFLAGS=" -x objective-c -fobjc-arc -std=gnu99 $(TARGET_GLOBAL_CFLAGS)" \
+	OBJC="$(TARGET_CC)" \
+	CFLAGS=" -std=gnu99 -x c $(TARGET_GLOBAL_CFLAGS)"
 
 endif
 
