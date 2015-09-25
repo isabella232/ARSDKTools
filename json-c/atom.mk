@@ -38,7 +38,7 @@ LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 
 endif
 
-else ifeq ("$(TARGET_OS_FLAVOUR)","iphoneos")
+else ifneq ($(filter iphoneos iphonesimulator, $(TARGET_OS_FLAVOUR)),)
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--disable-shared \
