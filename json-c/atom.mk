@@ -28,16 +28,6 @@ LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--disable-so-version \
 	LIBS=" -llog -lz"
 
-ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi)
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	CFLAGS=" -march=armv5te"
-
-else ifeq ($(ARSDK_BUILD_ANDROID_ARCH), armeabi-v7a)
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	CFLAGS=" -march=armv7-a"
-
-endif
-
 else ifneq ($(filter iphoneos iphonesimulator, $(TARGET_OS_FLAVOUR)),)
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
