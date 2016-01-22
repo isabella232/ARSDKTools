@@ -14,18 +14,6 @@ LOCAL_AUTOTOOLS_SUBDIR := libressl-$(LOCAL_AUTOTOOLS_VERSION)
 LOCAL_AUTOTOOLS_PATCHES := \
 	libressl-2.2.1.patch
 
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
-	--enable-static \
-	--disable-shared \
-	INSTALL="/usr/bin/install -C"
-
-ifeq ("$(TARGET_OS_FLAVOUR)","android")
-
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	LIBS=" -llog -lz"
-
-endif
-
 # User define command to be launch before configure step.
 # Generates files used by configure
 define LOCAL_AUTOTOOLS_CMD_POST_UNPACK

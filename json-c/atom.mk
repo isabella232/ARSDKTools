@@ -17,27 +17,9 @@ ifdef ARSDK_BUILD_FOR_APP
 LOCAL_AUTOTOOLS_PATCHES := \
 	avoid-version.patch
 
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
-	INSTALL="/usr/bin/install -C"
-
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
-
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--disable-static \
-	--enable-shared \
-	--disable-so-version \
-	LIBS=" -llog -lz"
-
-else ifneq ($(filter iphoneos iphonesimulator, $(TARGET_OS_FLAVOUR)),)
-
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--disable-shared \
-	--enable-static \
-	LIBS=" -lm -lz" \
-	OBJCFLAGS=" -x objective-c -fobjc-arc -std=gnu99 $(TARGET_GLOBAL_CFLAGS)" \
-	OBJC="$(TARGET_CC)" \
-	CFLAGS=" -std=gnu99 -x c $(TARGET_GLOBAL_CFLAGS)"
-
+	--disable-so-version
 endif
 
 # User define command to be launch before configure step.

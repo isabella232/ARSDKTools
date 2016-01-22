@@ -51,23 +51,9 @@ LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
 	--without-winidn
 
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
-
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--disable-static \
-	--enable-shared \
-	--disable-so-version \
-	LIBS=" -llog -lz"
-
-else ifneq ($(filter iphoneos iphonesimulator, $(TARGET_OS_FLAVOUR)),)
-
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--disable-shared \
-	--enable-static
-
+	--disable-so-version
 endif
-
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	INSTALL="/usr/bin/install -C"
 
 # User define command to be launch before configure step.
 # Generates files used by configure
