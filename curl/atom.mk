@@ -58,7 +58,7 @@ endif
 # User define command to be launch before configure step.
 # Generates files used by configure
 define LOCAL_AUTOTOOLS_CMD_POST_UNPACK
-	$(Q) cd $(PRIVATE_SRC_DIR) && rm src/tool_hugehelp.c && autoreconf -fiv
+	$(Q) rm -f $(PRIVATE_SRC_DIR)/src/tool_hugehelp.c
 endef
 
 include $(BUILD_AUTOTOOLS)

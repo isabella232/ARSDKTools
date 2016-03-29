@@ -15,18 +15,14 @@ LOCAL_EXPORT_LDLIBS := -ljson
 ifdef ARSDK_BUILD_FOR_APP
 
 LOCAL_AUTOTOOLS_PATCHES := \
-	avoid-version.patch
+	0001-json-c-0.9-maintainer-mode.patch \
+	0002-json-c-0.9-avoid-version.patch \
+	0003-json-c-0.9-android-build.patch
 
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
 	--disable-so-version
 endif
-
-# User define command to be launch before configure step.
-# Generates files used by configure
-define LOCAL_AUTOTOOLS_CMD_POST_UNPACK
-	$(Q) cd $(PRIVATE_SRC_DIR) && autoreconf -fiv
-endef
 
 endif
 

@@ -11,18 +11,15 @@ LOCAL_CATEGORY_PATH := libs
 LOCAL_AUTOTOOLS_VERSION := 2.2.1
 LOCAL_AUTOTOOLS_ARCHIVE := libressl-$(LOCAL_AUTOTOOLS_VERSION).tar.gz
 LOCAL_AUTOTOOLS_SUBDIR := libressl-$(LOCAL_AUTOTOOLS_VERSION)
+
 LOCAL_AUTOTOOLS_PATCHES := \
-	libressl-2.2.1.patch
+	0001-libressl-2.2.1-maintainer-mode.patch \
+	0002-libressl-2.2.1-android-compilation.patch \
+	0003-libressl-2.2.1-ios-compilation.patch
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
 	--enable-static \
 	--disable-shared
-
-# User define command to be launch before configure step.
-# Generates files used by configure
-define LOCAL_AUTOTOOLS_CMD_POST_UNPACK
-	$(Q) cd $(PRIVATE_SRC_DIR) && autoreconf -fiv
-endef
 
 # Don't redefine alloc functions
 LOCAL_AUTOTOOLS_CONFIGURE_ENV := \
