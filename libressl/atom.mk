@@ -15,7 +15,8 @@ LOCAL_AUTOTOOLS_SUBDIR := libressl-$(LOCAL_AUTOTOOLS_VERSION)
 LOCAL_AUTOTOOLS_PATCHES := \
 	0001-libressl-2.2.1-maintainer-mode.patch \
 	0002-libressl-2.2.1-android-compilation.patch \
-	0003-libressl-2.2.1-ios-compilation.patch
+	0003-libressl-2.2.1-ios-compilation.patch \
+	0004-libressl-2.2.1-armv5.patch
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
 	--enable-static \
