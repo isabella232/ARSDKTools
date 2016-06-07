@@ -20,6 +20,7 @@ LOCAL_EXPORT_LDLIBS := -lcurl
 LOCAL_LIBRARIES := libressl
 
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS := \
+	--enable-ipv6 \
 	--disable-ares \
 	--disable-file \
 	--disable-ldap \
