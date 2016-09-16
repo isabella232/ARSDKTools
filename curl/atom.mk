@@ -16,6 +16,11 @@ LOCAL_AUTOTOOLS_PATCHES := \
 	0002-ARSDK-Allow-iOS-x86_64-builds-for-simulators.patch \
 	avoid-version.patch
 
+ifeq ("$(TARGET_OS)","darwin")
+LOCAL_AUTOTOOLS_PATCHES += \
+	0003-ARSDK-fix-clock_gettime-ios.patch
+endif
+
 LOCAL_EXPORT_LDLIBS := -lcurl
 LOCAL_LIBRARIES := libressl
 
