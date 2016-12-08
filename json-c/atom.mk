@@ -17,7 +17,8 @@ ifdef ARSDK_BUILD_FOR_APP
 LOCAL_AUTOTOOLS_PATCHES := \
 	0001-json-c-0.9-maintainer-mode.patch \
 	0002-json-c-0.9-avoid-version.patch \
-	0003-json-c-0.9-android-build.patch
+	0003-json-c-0.9-android-build.patch \
+	0004-json-c-0.9-aarch64-build.patch
 
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
 LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
