@@ -6,25 +6,20 @@ LOCAL_MODULE := json
 LOCAL_DESCRIPTION := JSON-C
 LOCAL_CATEGORY_PATH := libs
 
-LOCAL_AUTOTOOLS_VERSION := 0.9
+LOCAL_AUTOTOOLS_VERSION := 0.12.1
 LOCAL_AUTOTOOLS_ARCHIVE := json-c-$(LOCAL_AUTOTOOLS_VERSION).tar.gz
 LOCAL_AUTOTOOLS_SUBDIR := json-c-$(LOCAL_AUTOTOOLS_VERSION)
 
-LOCAL_EXPORT_LDLIBS := -ljson
+LOCAL_EXPORT_LDLIBS := -ljson-c
 
-ifdef ARSDK_BUILD_FOR_APP
+# Compatibility link
+LOCAL_CREATE_LINKS := \
+	usr/include/json:json-c \
+	usr/lib/libjson.a:libjson-c.a
 
-LOCAL_AUTOTOOLS_PATCHES := \
-	0001-json-c-0.9-maintainer-mode.patch \
-	0002-json-c-0.9-avoid-version.patch \
-	0003-json-c-0.9-android-build.patch \
-	0004-json-c-0.9-aarch64-build.patch
-
-ifeq ("$(TARGET_OS_FLAVOUR)","android")
-LOCAL_AUTOTOOLS_CONFIGURE_ARGS += \
-	--disable-so-version
-endif
-
+ifneq ("$(TARGET_FORCE_STATIC)","1")
+LOCAL_CREATE_LINKS += \
+	usr/lib/libjson.so:libjson-c.so
 endif
 
 # Don't redefine alloc functions
