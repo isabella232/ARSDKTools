@@ -22,6 +22,18 @@ LOCAL_CREATE_LINKS += \
 	usr/lib/libjson.so:libjson-c.so
 endif
 
+# Remove so version for android shared libraries
+ifeq ("$(TARGET_OS_FLAVOUR)","android")
+LOCAL_AUTOTOOLS_PATCHES := 0001-android_avoid_so_version.patch
+
+# If targetting an API level before 21, also apply the following patches
+ifneq ("$(firstword $(sort $(TARGET_ANDROID_APILEVEL) 21))", "21")
+LOCAL_AUTOTOOLS_PATCHES += 0002-android_avoid_isinf.patch
+endif
+
+endif
+
+
 # Don't redefine alloc functions
 LOCAL_AUTOTOOLS_CONFIGURE_ENV := \
 	ac_cv_func_malloc_0_nonnull=yes \
