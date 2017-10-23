@@ -1,10 +1,10 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_CATEGORY_PATH := dragon/tools/uthash
 
 LOCAL_MODULE := uthash
 LOCAL_DESCRIPTION := uthash
+LOCAL_CATEGORY_PATH := libs
 
 LOCAL_INSTALL_HEADERS := \
 	src/utarray.h:usr/include/uthash/ \
