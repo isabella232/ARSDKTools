@@ -22,6 +22,11 @@ LOCAL_CREATE_LINKS += \
 	usr/lib/libjson.so:libjson-c.so
 endif
 
+# Do not error out on implicit fallthrough in switch statements. json-c is
+# full of them, and they are all intentional. There is no easy way to disable
+# this specific type of warnings, so we stop treating all warnings as errors.
+LOCAL_CFLAGS += -Wno-error
+
 # Remove so version for android shared libraries
 ifeq ("$(TARGET_OS_FLAVOUR)","android")
 LOCAL_AUTOTOOLS_PATCHES := 0001-android_avoid_so_version.patch
